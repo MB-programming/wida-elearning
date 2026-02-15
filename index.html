@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>وِيدا | أكاديمية التعلم الإلكتروني</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #0f0b1e;
+      color: #fff;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+
+    /* ===== COLORS ===== */
+    :root {
+      --gradient: linear-gradient(0deg, #744C74 0%, #3D307C 42%, #342763 75%, #664892 100%);
+      --purple-1: #744C74;
+      --purple-2: #3D307C;
+      --purple-3: #342763;
+      --purple-4: #664892;
+      --accent: #9b7fd4;
+      --text-muted: rgba(255,255,255,0.65);
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 100;
+      padding: 22px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-logo img {
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .navbar-links a:hover { color: #fff; }
+
+    .navbar-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--purple-2);
+      padding: 9px 26px;
+      border-radius: 50px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255,255,255,0.88);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Decorative palm leaf — top-left (mirrored for RTL) */
+    .hero-decor-leaf {
+      position: absolute;
+      top: -30px;
+      left: -20px;
+      width: 520px;
+      opacity: 0.85;
+      pointer-events: none;
+      transform: scaleX(-1);
+    }
+
+    /* Bottom-right subtle glow */
+    .hero-glow {
+      position: absolute;
+      bottom: -120px;
+      right: -120px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(116,76,116,.55) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 140px 60px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text {}
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 22px;
+    }
+
+    .hero-badge span.dot {
+      width: 7px; height: 7px;
+      background: #b48fd4;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5vw, 62px);
+      font-weight: 900;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span {
+      color: #c9a8f0;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      background: #fff;
+      color: var(--purple-2);
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .btn-hero-outline {
+      background: transparent;
+      color: #fff;
+      padding: 13px 36px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-hero-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    /* Hero Stats */
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* Hero image side */
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-main-img {
+      width: 100%;
+      max-width: 440px;
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Floating card on hero image */
+    .hero-float-card {
+      position: absolute;
+      bottom: -20px;
+      right: -30px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+      min-width: 210px;
+    }
+
+    .float-card-icon {
+      width: 42px; height: 42px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .float-card-icon img { width: 24px; }
+
+    .float-card-text .title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+    }
+
+    .float-card-text .sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+      display: block;
+    }
+
+    /* ===== WAVE DIVIDER ===== */
+    .wave-divider {
+      background: var(--gradient);
+      line-height: 0;
+    }
+
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* ===== SECTION BASE ===== */
+    .section {
+      padding: 90px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(100,72,146,0.18);
+      border: 1px solid rgba(100,72,146,0.4);
+      color: var(--accent);
+      border-radius: 50px;
+      padding: 5px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ===== FEATURES ===== */
+    .features-bg {
+      background: #0d0a1c;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: linear-gradient(145deg, #1a1335 0%, #12102a 100%);
+      border: 1px solid rgba(100,72,146,0.25);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(61,48,124,.3);
+    }
+
+    .feature-icon {
+      width: 60px; height: 60px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon img {
+      width: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* ===== VIDEO SECTION ===== */
+    .video-bg {
+      background: #0f0b1e;
+    }
+
+    .video-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .video-mockup {
+      position: relative;
+    }
+
+    .video-mockup img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    .video-text {}
+
+    /* ===== ABOUT / GALLERY ===== */
+    .about-bg {
+      background: #0d0a1c;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-images {
+      position: relative;
+    }
+
+    .about-img-main {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    }
+
+    .about-img-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 80px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 50%;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .about-img-overlay {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 180px;
+      border-radius: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+    }
+
+    /* ===== TESTIMONIALS / BOOK ===== */
+    .book-section {
+      background: var(--gradient);
+      padding: 80px 60px;
+    }
+
+    .book-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .book-img {
+      width: 220px;
+      border-radius: 16px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      transform: rotate(-3deg);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #080614;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 50px 60px 30px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo img {
+      height: 30px;
+      margin-bottom: 16px;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .footer-heading {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .navbar { padding: 18px 24px; }
+      .navbar-links { display: none; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 120px 24px 60px;
+        text-align: center;
+      }
+
+      .hero-image-wrap { order: -1; }
+      .hero-float-card { right: 0; bottom: -10px; }
+      .hero-stats { justify-content: center; }
+      .hero-buttons { justify-content: center; }
+      .hero-subtitle { margin: 0 auto 36px; }
+
+      .section { padding: 60px 24px; }
+
+      .features-grid { grid-template-columns: 1fr; }
+      .video-inner { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .book-inner { grid-template-columns: 1fr; text-align: center; }
+      .book-img { margin: 0 auto; }
+
+      .footer-top { grid-template-columns: 1fr; }
+      footer { padding: 40px 24px 20px; }
+      .book-section { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <img src="Group 2.png" alt="wida" />
+    </div>
+    <ul class="navbar-links">
+      <li><a href="#">الرئيسية</a></li>
+      <li><a href="#">الكورسات</a></li>
+      <li><a href="#">المدربون</a></li>
+      <li><a href="#">من نحن</a></li>
+      <li><a href="#">تواصل معنا</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="btn-outline">تسجيل الدخول</button>
+      <button class="btn-primary">ابدأ مجاناً</button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <!-- Decorative palm leaf top left -->
+    <img class="hero-decor-leaf" src="Clip path group.png" alt="" aria-hidden="true" />
+    <div class="hero-glow"></div>
+
+    <div class="hero-inner">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          منصة التعلم الإلكتروني الأولى
+        </div>
+
+        <h1 class="hero-title">
+          طوّر مهاراتك مع<br />
+          <span>أكاديمية وِيدا</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          محتوى تعليمي احترافي باللغة العربية في مجالات إدارة الأعمال،
+          التقنية، والتطوير الشخصي — في أي وقت وأي مكان.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#" class="btn-hero-primary">استعرض الكورسات</a>
+          <a href="#" class="btn-hero-outline">تعرف علينا أكثر</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num">+500</span>
+            <span class="stat-label">دورة تدريبية</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">+12K</span>
+            <span class="stat-label">متدرب نشط</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">+80</span>
+            <span class="stat-label">مدرب متخصص</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="hero-image-wrap">
+        <img class="hero-main-img" src="arab (218) 1.png" alt="متدرب على وِيدا" />
+
+        <div class="hero-float-card">
+          <div class="float-card-icon">
+            <img src="Group 7.png" alt="" />
+          </div>
+          <div class="float-card-text">
+            <span class="title">شهادة معتمدة</span>
+            <span class="sub">عند إتمام الدورة</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <div class="features-bg">
+    <div class="section">
+      <div class="section-tag">لماذا وِيدا؟</div>
+      <h2 class="section-title">كل ما تحتاجه في <span>مكان واحد</span></h2>
+      <p class="section-desc">
+        منصة وِيدا توفّر لك بيئة تعلّم متكاملة تجمع بين المحتوى التعليمي عالي الجودة
+        والشهادات المعتمدة والدعم المستمر من المدربين.
+      </p>
+
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img src="Group 5.png" alt="تعلم مرن" />
+          </div>
+          <h3 class="feature-title">تعلّم بمرونة تامة</h3>
+          <p class="feature-desc">
+            تعلّم في أي وقت ومن أي مكان على أجهزتك المختلفة.
+            المحتوى متاح 24/7 بدون قيود.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img src="Group 6@2x.png" alt="محتوى تفاعلي" />
+          </div>
+          <h3 class="feature-title">محتوى تفاعلي</h3>
+          <p class="feature-desc">
+            دروس فيديو احترافية، اختبارات تقييمية، ومشاريع عملية
+            لضمان أقصى استفادة من كل دورة.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img src="Group 8.png" alt="شهادات معتمدة" />
+          </div>
+          <h3 class="feature-title">شهادات معتمدة</h3>
+          <p class="feature-desc">
+            احصل على شهادة إتمام معتمدة تُضاف لسيرتك الذاتية
+            وتُثبت كفاءتك لأصحاب العمل.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIDEO SECTION ===== -->
+  <div class="video-bg">
+    <div class="section">
+      <div class="video-inner">
+
+        <div class="video-mockup">
+          <img src="Asset 8 1.png" alt="مشغّل الفيديو" />
+        </div>
+
+        <div class="video-text">
+          <div class="section-tag">طريقة التعلم</div>
+          <h2 class="section-title">تجربة تعليمية <span>استثنائية</span></h2>
+          <p class="section-desc">
+            يقدّم مدربو وِيدا المحتوى بأسلوب واضح وعملي.
+            مقاطع فيديو قصيرة ومركّزة، مع أمثلة حقيقية من بيئة العمل
+            تُحوّل النظري إلى مهارة قابلة للتطبيق فوراً.
+          </p>
+
+          <br />
+
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:14px; margin-top:10px;">
+            <li style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.8); font-size:15px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--gradient);display:inline-flex;align-items:center;justify-content:center;font-size:10px;">✓</span>
+              دروس قصيرة وفعّالة
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.8); font-size:15px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--gradient);display:inline-flex;align-items:center;justify-content:center;font-size:10px;">✓</span>
+              نسخة نصية لكل درس
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.8); font-size:15px;">
+              <span style="width:20px;height:20px;border-radius:50%;background:var(--gradient);display:inline-flex;align-items:center;justify-content:center;font-size:10px;">✓</span>
+              تحميل للمشاهدة دون إنترنت
+            </li>
+          </ul>
+
+          <div style="margin-top:36px;">
+            <a href="#" class="btn-hero-primary">شاهد نموذجاً مجانياً</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT / GALLERY ===== -->
+  <div class="about-bg">
+    <div class="section">
+      <div class="about-inner">
+
+        <div class="about-images">
+          <img class="about-img-main" src="Mask group.png" alt="فريق وِيدا" />
+          <img class="about-img-badge" src="Group 7.png" alt="wida" />
+          <img class="about-img-overlay" src="Frame 2.png" alt="" />
+        </div>
+
+        <div>
+          <div class="section-tag">من نحن</div>
+          <h2 class="section-title">رواد التعلم الإلكتروني <span>في العالم العربي</span></h2>
+          <p class="section-desc">
+            وِيدا منصة سعودية متخصصة في التعليم الإلكتروني، تأسست بهدف رفع كفاءة
+            الكوادر البشرية عبر محتوى تدريبي عالي الجودة يلبّي احتياجات سوق العمل
+            ويواكب رؤية 2030.
+          </p>
+          <br />
+          <p class="section-desc">
+            نؤمن بأن التعليم حق للجميع، ونسعى لتوفير أفضل تجربة تعلّم ممكنة
+            بأسعار تنافسية وشهادات تُعزّز مسيرتك المهنية.
+          </p>
+
+          <div style="margin-top:36px;">
+            <a href="#" class="btn-hero-outline">اعرف أكثر عن وِيدا</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOOK / CTA SECTION ===== -->
+  <section class="book-section">
+    <div class="book-inner">
+
+      <div>
+        <div class="section-tag" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3);color:#fff;">مصادر مجانية</div>
+        <h2 class="section-title">احصل على دليل<br /><span style="color:#e0c8ff;">أساسيات العمل</span> مجاناً</h2>
+        <p class="section-desc" style="margin-top:14px;">
+          دليل شامل يغطّي أهم المهارات الوظيفية التي يحتاجها كل موظف جديد،
+          من إدارة الوقت إلى التواصل الفعّال وآداب بيئة العمل.
+        </p>
+        <div style="margin-top:32px;">
+          <a href="#" class="btn-hero-primary">تحميل الدليل مجاناً</a>
+        </div>
+      </div>
+
+      <img class="book-img" src="Asset 11@300x 1.png" alt="دليل أساسيات العمل" />
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div>
+          <div class="footer-logo">
+            <img src="Group 2.png" alt="wida" />
+          </div>
+          <p class="footer-desc">
+            منصة وِيدا للتعلم الإلكتروني — نرفع كفاءة الكوادر البشرية
+            عبر محتوى تدريبي احترافي باللغة العربية.
+          </p>
+          <p style="margin-top:10px;font-size:13px;color:rgba(255,255,255,.35);">
+            wida.sa &nbsp;|&nbsp; @wida_ksa
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">الكورسات</a></li>
+            <li><a href="#">المدربون</a></li>
+            <li><a href="#">المدونة</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">تواصل معنا</h4>
+          <ul class="footer-links">
+            <li><a href="#">الدعم الفني</a></li>
+            <li><a href="#">الشراكات</a></li>
+            <li><a href="#">سياسة الخصوصية</a></li>
+            <li><a href="#">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 وِيدا. جميع الحقوق محفوظة.</span>
+        <div class="footer-social">
+          <a href="#" class="social-link" title="تويتر">X</a>
+          <a href="#" class="social-link" title="انستغرام">In</a>
+          <a href="#" class="social-link" title="لينكدإن">Li</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
